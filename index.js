@@ -90,9 +90,9 @@ mongoConnect.on("connected", async () => {
 
     // time = datum["_created"];
 
-    await Subsystem.seedCollection("acsvdata", acsvdata);
+    await Subsystem.seedCollection("acsvdata", acsvdata());
 
-    await Subsystem.seedCollection("crownmaxondata", crownmaxondata);
+    await Subsystem.seedCollection("crownmaxondata", crownmaxondata());
 
     await timer(1000);
     console.log("data seeded");
