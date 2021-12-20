@@ -2,7 +2,13 @@ const mongoConnect = require("./utils/MongoConnect");
 
 const config = require("./config/config");
 
-const { acsvdata, crownmaxondata } = require("./subsystemTemplates");
+const {
+  acsvdata,
+  crownmaxondata,
+  pumpmsgfb,
+  ublox,
+  deltappressure,
+} = require("./subsystemTemplates");
 
 mongoConnect.open(config.mongo.url, config.mongo.options);
 
@@ -71,7 +77,7 @@ mongoConnect.on("connected", async () => {
 
   const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 1000; i++) {
     // let datum = data;
 
     // if (time) {
@@ -93,6 +99,12 @@ mongoConnect.on("connected", async () => {
     await Subsystem.seedCollection("acsvdata", acsvdata());
 
     await Subsystem.seedCollection("crownmaxondata", crownmaxondata());
+
+    await Subsystem.seedCollection("pumpmsgfb", pumpmsgfb());
+
+    await Subsystem.seedCollection("ublox", ublox());
+
+    await Subsystem.seedCollection("deltappressure", deltappressure());
 
     await timer(1000);
     console.log("data seeded");
